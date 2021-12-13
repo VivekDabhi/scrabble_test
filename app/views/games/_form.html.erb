@@ -1,0 +1,63 @@
+<%= form_with(model: game, local: true) do |form| %>
+  <% if game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+        <% game.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-md-6">
+    <%= form.label :name %><span class='text-danger'>*</span>
+    <%= form.text_field :name, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group col-md-6">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <%= form.fields_for :participants, @game.participants.first do |member_form| %>
+    <div class='col-md-6'>
+      <strong><label class='form-label'>Member</label></strong>
+      <span class='text-danger'>*</span>
+      <%= member_form.collection_select :player_id, Player.all, :id, :name, {prompt: 'Select Member'}, {id: 'game_member_id', class: 'form-select form-select-lg mb-3', required: true} %>
+    </div>
+  <% end %>
+
+  <%= form.fields_for :participants, @game.participants.last do |opponent_form| %>
+    <div class='col-md-6'>
+      <strong><label class='form-label'>Oppenent</label></strong>
+      <span class='text-danger'>*</span>
+      <%= opponent_form.collection_select :player_id, Player.all, :id, :name, {prompt: 'Select Opponent'}, {id: 'game_opponent_id', class: 'form-select form-select-lg mb-3', required: true} %>
+    </div>
+  <% end %>
+
+  <div class='row mt-3'>
+    <div class="form-group col-md-6">
+      <%= form.submit t('submit'), class: 'btn btn-primary' %>
+      <%= link_to t('back'), games_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var member_list = '#game_member_id'
+  var opponent_list = '#game_opponent_id'
+  var selector_ids = $(`${member_list}, ${opponent_list}`)
+  selector_ids.on('change', function () {
+    var member_field_change = $(this).attr('id') == 'game_member_id'
+    var update_field = member_field_change ? opponent_list : member_list
+    var selected_value = $(this).val();
+    if (selected_value != ''){
+      $(`${update_field} option[value='`+ selected_value +"']").hide();
+      $(`${update_field} option[value!='`+ selected_value +"']").show();
+    } else if (selected_value == '' && $(update_field).val() == '') {
+      selector_ids.children().show();
+    }
+  })
+</script>

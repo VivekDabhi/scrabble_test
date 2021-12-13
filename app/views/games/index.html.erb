@@ -1,0 +1,36 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h3><%= page_title %></h3>
+  <%= link_to new_game_path, class: 'btn btn-primary' do %>
+    <%= t('game.add') %>
+  <% end %>
+</div>
+<p id="notice"><%= notice %></p>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Players</th>
+        <th scope="col">Winner</th>
+        <th scope="col">Winning Score</th>
+        <th scope="col">Losing score</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @games.each.with_index(1) do |game, index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= game.name %></td>
+          <td><%= game.participants_name.join(" <=> ") %></td>
+          <td><%= game.winner.name %></td>
+          <td><%= game.winning_score %></td>
+          <td><%= game.losing_score %></td>
+          <td><%= link_to 'Show', game %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
