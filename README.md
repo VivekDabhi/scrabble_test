@@ -6,11 +6,11 @@
 - Rails version: 6.0.3
 - Database: PostgreSQL
 
-## Setup steps:
+## Follow below steps to setup your development environment:
 
 1. clone the repository:
 
-        git clone https://github.com/jaydipmk/scrabble_club.git
+        git clone https://github.com/VivekDabhi/scrabble_test.git
 
 2. Install dependencies:
 
@@ -45,11 +45,11 @@
 
         rails s
 
-## What is application does?
+## What does the application ?
 
 1. We can create player and edit the player information.
 2. We can see the player profile information, like, how much game he/she wins, lose, average score, highest score against which opponent in which game.
 3. We can play/create the game.
 4. We can see the leaderboard who played minimum 10 games, irrespective of wins or lose.
 
-### Have a fun...!!!
+### Thank You 
